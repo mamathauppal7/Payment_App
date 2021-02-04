@@ -28,10 +28,10 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.paymentForm=this.pb.group({
-      cardNumber: [null,Validators.required],
-      username: ['',Validators.required],
+      cardNumber: [null,[Validators.required,Validators.pattern("[0-9]+")]],
+      username: ['',[Validators.required,Validators.pattern("[A-Za-z]+")]],
       exiparyDate:[null,Validators.required],
-      ccv: [null,Validators.maxLength(3)],
+      ccv: [null,[Validators.maxLength(3)]],
       amount:[null,[Validators.required,Validators.min(1)]]
     })
   
@@ -54,6 +54,7 @@ export class PaymentDetailsComponent implements OnInit {
     this.paymentService.confirmPayment(cardNumber,username,exiparyDate,ccv,amount)
     .subscribe((data:Payment)=>{
       if(!this.paymentForm.valid){
+        this.submitted=true;
         this.toastr.error('Payment is failed :(');
         return;
       }

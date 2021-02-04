@@ -1,6 +1,6 @@
 <center>
     <div class="card m-3" style="width:600px;">
-        <h5 class="card-header">Payment gateway</h5>
+        <h5 class="card-header" style="background-color:black;color:white">Payment Gateway</h5>
         <div class="card-body">
             <form role="form" [formGroup]="paymentForm" >
                 <div class="form-group">
@@ -10,15 +10,18 @@
                             <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
                         </div>
                         <input required type="text" class="form-control" formControlName="cardNumber" #cardNumber
-                            [ngClass]="{ 'is-invalid': submitted && p.cardNumber.errors }">
+                        pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted && p.cardNumber.errors }">
                     </div>
                 </div>
                 <div *ngIf="isValidInput('cardNumber')" class="alert alert-danger">
                     <div *ngIf="paymentForm.controls['cardNumber'].errors.required">
                         Card Number is required.
                     </div>
+                    <div *ngIf="paymentForm.controls['cardNumber'].errors.pattern">
+                        Input filed should be number
+                    </div>
                 </div>
-
+               
                 <div class="form-group">
                     <label for="username">Card Holder</label>
                     <div class="input-group">
@@ -32,6 +35,9 @@
                 <div *ngIf="isValidInput('username')" class="alert alert-danger">
                     <div *ngIf="paymentForm.controls['username'].errors.required">
                         Card Holder is required.
+                    </div>
+                    <div *ngIf="paymentForm.controls['username'].errors.pattern">
+                        Input filed should be text
                     </div>
                 </div>
                 <div class="row">
@@ -54,16 +60,14 @@
                             <label data-toggle="tooltip" title=""
                                 data-original-title="3 digits code on back side of the card">CCV <i
                                     class="fa fa-question-circle"></i></label>
-                            <input class="form-control" type="text" formControlName="ccv" maxlength="3" #ccv>
+                            <input class="form-control" type="text" formControlName="ccv"minlength="3" maxlength="3" #ccv>
+                        </div>
+                        <div *ngIf="isValidInput('ccv')" class="alert alert-danger">
+                            ccv should be 3 number
                         </div>
                     </div>
                 </div>
-                <div *ngIf="isValidInput('ccv')" class="alert alert-danger">
-                    <div *ngIf="paymentForm.controls['ccv'].errors.maxLength">
-                       ccv number should be 3 number
-                    </div>
-                </div>
-
+               
                 <div class="form-group">
                     <label for="Amount">Amount</label>
                     <div class="input-group">

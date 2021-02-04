@@ -4,7 +4,7 @@ import * as PaymentActions from '../action/Payment.action';
 
 
 const initialState: Payment = {
-     cardNumber:1234567,
+     cardNumber:123456789014,
      username:'Kiran',
      exiparyDate:"2021-02-22",
      ccv:123,
