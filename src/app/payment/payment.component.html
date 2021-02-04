@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center"><br /><br />
+            <button class="btn  btn-primary" style="width:150px;" (click)="onPayment()">Pay Now</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card m-3" style="width:700px;">
+            <h5 class="card-header">Payment History</h5>
+            <div class="card-body">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <th> Card Number</th>
+                            <th>Card Holder</th>
+                            <th> Exipary Date</th>
+                            <th>CCV</th>
+                            <th>Amount</th>
+                        </thead>
+                            <tr *ngFor="let payment of payments | async ">
+                                <td>
+                                  {{ payment.cardNumber}}
+                                </td>
+                                <td>
+                                  {{ payment.username}}
+                                </td>
+                                <td>
+                                  {{ payment.exiparyDate}}
+                                </td>
+                                <td>
+                                  {{ payment.ccv}}
+                                </td>
+                                <td>
+                                  {{ payment.amount}}
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

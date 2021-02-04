@@ -1,0 +1,91 @@
+<center>
+    <div class="card m-3" style="width:600px;">
+        <h5 class="card-header">Payment gateway</h5>
+        <div class="card-body">
+            <form role="form" [formGroup]="paymentForm" >
+                <div class="form-group">
+                    <label for="cardNumber">Card number</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                        </div>
+                        <input required type="text" class="form-control" formControlName="cardNumber" #cardNumber
+                            [ngClass]="{ 'is-invalid': submitted && p.cardNumber.errors }">
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('cardNumber')" class="alert alert-danger">
+                    <div *ngIf="paymentForm.controls['cardNumber'].errors.required">
+                        Card Number is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Card Holder</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="username" #username
+                            [ngClass]="{ 'is-invalid': submitted && p.username.errors }">
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('username')" class="alert alert-danger">
+                    <div *ngIf="paymentForm.controls['username'].errors.required">
+                        Card Holder is required.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="Amount">Expiration Date</label>
+                            <div class="input-group">
+                                <input  type="date" class="form-control" formControlName="exiparyDate" #exiparyDate
+                                    [ngClass]="{ 'is-invalid': submitted && p.exiparyDate.errors }">
+                            </div>
+                        </div>
+                        <div *ngIf="isValidInput('exiparyDate')" class="alert alert-danger">
+                            <div *ngIf="paymentForm.controls['exiparyDate'].errors.required">
+                                Exipary Date is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label data-toggle="tooltip" title=""
+                                data-original-title="3 digits code on back side of the card">CCV <i
+                                    class="fa fa-question-circle"></i></label>
+                            <input class="form-control" type="text" formControlName="ccv" maxlength="3" #ccv>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('ccv')" class="alert alert-danger">
+                    <div *ngIf="paymentForm.controls['ccv'].errors.maxLength">
+                       ccv number should be 3 number
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Amount">Amount</label>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" formControlName="amount"
+                            [ngClass]="{ 'is-invalid': submitted && p.amount.errors }" #amount>
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('amount')" class="alert alert-danger">
+                    <div *ngIf="paymentForm.controls['amount'].errors.required">
+                        Amount is required.
+                    </div>
+                    <div *ngIf="paymentForm.controls['amount'].errors.min">
+                        Amount should be greater than 0
+                    </div>
+                </div>
+
+                <button class="btn btn-danger " type="button" style="width:100px;" (click)="cancel()"> Cancel
+                </button>&nbsp;&nbsp;
+                <button class="btn btn-success" type="submit" style="width:100px;" 
+                (click)="onSubmit( cardNumber.value,username.value,exiparyDate.value,
+                ccv.value,amount.value)"> Confirm </button>
+            </form>
+        </div>
+    </div>
+</center>
